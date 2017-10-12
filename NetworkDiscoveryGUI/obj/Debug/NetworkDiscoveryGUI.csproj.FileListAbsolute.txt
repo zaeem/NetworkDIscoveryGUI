@@ -63,17 +63,6 @@ C:\Users\HAIER-PC\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\ru\X
 C:\Users\HAIER-PC\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\HAIER-PC\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\NetworkDiscoveryGUI.exe.config
-C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.exe
-C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.pdb
-C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.csprojResolveAssemblyReference.cache
-C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\MainWindow.baml
-C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\App.baml
-C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\MainWindow.g.cs
-C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\App.g.cs
-C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI_MarkupCompile.cache
-C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.g.resources
-C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.Properties.Resources.resources
-C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.csproj.GenerateResource.Cache
 C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\NetworkDiscoveryGUI.exe
 C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\NetworkDiscoveryGUI.pdb
 C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\MaterialDesignColors.dll
@@ -104,3 +93,16 @@ C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\ro
 C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.csprojResolveAssemblyReference.cache
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\MainWindow.baml
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\App.baml
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\MainWindow.g.cs
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\App.g.cs
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI_MarkupCompile.cache
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.g.resources
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.Properties.Resources.resources
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.csproj.GenerateResource.Cache
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.exe
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\obj\Debug\NetworkDiscoveryGUI.pdb
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Zaeem Asif\Desktop\NetworkDiscoveryGUI\NetworkDiscoveryGUI\bin\Debug\Microsoft.Web.Infrastructure.xml

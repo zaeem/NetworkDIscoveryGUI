@@ -19,7 +19,8 @@ using System.Linq;
 using System.Management.Instrumentation;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
-
+using System.Windows;
+using System.Windows.Controls;
 
 namespace NetworkDiscoveryGUI
 {
@@ -30,28 +31,47 @@ namespace NetworkDiscoveryGUI
         static object lockObj = new object();
         const bool resolveNames = true;
         static public List<InfoToSend> AllInfo = new List<InfoToSend>();
-        static int khaaap = 0;
-
-        public static List<InfoToSend> Discovery()
+        static float value = 5;
+        static ProgressBar p;
+        public static List<InfoToSend> Discovery(TextBlock t, ProgressBar p1,string ip = "local", int start = 1, int end = 255)
         {
-            while(AllInfo.Count !=  0)
+            p = p1;
+            Application.Current.Dispatcher.Invoke(() => { p.Value = 0; });
+            Application.Current.Dispatcher.Invoke(() => { t.Text = "0%"; });
+            while (AllInfo.Count !=  0)
             {
                 AllInfo.RemoveAt(0);
             }
+            Application.Current.Dispatcher.Invoke(() => { p.Value = value; });
+            Application.Current.Dispatcher.Invoke(() => { t.Text = value.ToString() + "%"; });
             GetAllMacAddressesAndIppairs();
+            value += 5;
+            Application.Current.Dispatcher.Invoke(() => { p.Value = value ; });
+            Application.Current.Dispatcher.Invoke(() => { t.Text = value.ToString() + "%"; });
+            int c = 30 / AllInfo.Count; 
             foreach (var item in AllInfo)
             {
+                value += c;
+                Application.Current.Dispatcher.Invoke(() => { p.Value = value; });
+                Application.Current.Dispatcher.Invoke(() => { t.Text = value.ToString() + "%"; });
                 startScan(item.ipAddress);
             }
             getMyPC();
-            string[] arr = { "local", "two", "three" };
-            checkArgs(arr);
-            checkArgs(arr);
+            Application.Current.Dispatcher.Invoke(() => { p.Value = 45; });
+            Application.Current.Dispatcher.Invoke(() => { t.Text = "45%"; });
+            string[] arr = { ip, "two", "three" };
+            checkArgs(arr,start,end);
+            Application.Current.Dispatcher.Invoke(() => { p.Value = 65; });
+            Application.Current.Dispatcher.Invoke(() => { t.Text = "65%"; });
+            checkArgs(arr,start,end);
+            Application.Current.Dispatcher.Invoke(() => { p.Value = 85; });
+            Application.Current.Dispatcher.Invoke(() => { t.Text = "85%"; });
             GetManufacturers();
+            Application.Current.Dispatcher.Invoke(() => { p.Value = 95; });
+            Application.Current.Dispatcher.Invoke(() => { t.Text = "95%"; });
+            value = 0;
             return AllInfo;
         }
-        
-
         static void startScan(string ip)
         {
             countdown = new CountdownEvent(1);
@@ -123,7 +143,6 @@ namespace NetworkDiscoveryGUI
 
         static void GetManufacturers()
         {
-
             string manufacturer = "";
             foreach (var item in AllInfo)
             {
@@ -207,7 +226,7 @@ namespace NetworkDiscoveryGUI
             return macAddress;
         }
 
-        static void checkArgs(string[] args)
+        static void checkArgs(string[] args, int start, int end)
         {
             if (args[0] == "local")
             {
@@ -215,7 +234,7 @@ namespace NetworkDiscoveryGUI
                 if (base_ip != null)
                 {
                     // Functions.log(string.Format("Network Gateway: {0}", base_ip), 5);
-                    startScan2(Regex.Match(base_ip, "(\\d+.\\d+.\\d+.)").Groups[0].Value);
+                    startScan2(Regex.Match(base_ip, "(\\d+.\\d+.\\d+.)").Groups[0].Value,start,end);
                 }
                 else
                 {
@@ -224,16 +243,17 @@ namespace NetworkDiscoveryGUI
             }
             else
             {
-                startScan2(Regex.Match(args[0], "(\\d+.\\d+.\\d+.)").Groups[0].Value);
+                startScan2(Regex.Match(args[0], "(\\d+.\\d+.\\d+.)").Groups[0].Value, start, end);
             }
         }
 
-        static void startScan2(string ipBase)
+        static void startScan2(string ipBase, int start, int end)
         {
-            countdown = new CountdownEvent(1);
+            int c = end - start + 1;
+            countdown = new CountdownEvent(c);
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            for (int i = 1; i < 255; i++)
+            for (int i = start; i <= end; i++)
             {
                 string ip = ipBase + i.ToString();
                 new Thread(delegate()
@@ -242,7 +262,7 @@ namespace NetworkDiscoveryGUI
                     {
                         Ping p = new Ping();
                         p.PingCompleted += new PingCompletedEventHandler(pingDone2);
-                        countdown.AddCount();
+                        //countdown.AddCount();
                         p.SendAsync(ip, 100, ip);
                         //PingReply o = p.Send(ip,100);
                     }
@@ -252,7 +272,6 @@ namespace NetworkDiscoveryGUI
                     }
                 }).Start();
             }
-            countdown.Signal();
             countdown.Wait();
             sw.Stop();
             //TimeSpan span = new TimeSpan(sw.ElapsedTicks);

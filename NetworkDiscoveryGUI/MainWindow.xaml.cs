@@ -26,6 +26,7 @@ using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Media.Animation;
 
 namespace NetworkDiscoveryGUI
 {
@@ -36,6 +37,12 @@ namespace NetworkDiscoveryGUI
     {
         //public ObservableCollection<InfoToSend> AllInfo;
         public ObservableCollection<InfoToSend> AllInfo { get; set; }
+        int ip1;
+        int ip2;
+        int ip3;
+        int ip4;
+        int ip5;
+        ProgressBar PBar2;
         public MainWindow()
         {
             InitializeComponent();
@@ -89,31 +96,140 @@ namespace NetworkDiscoveryGUI
 
         private void Start_Discovery(object sender, RoutedEventArgs e)
         {
-
-
-            BusyIndicator.IsBusy = true;
-            BusyIndicator.BusyContent = "Scanning Network...";
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += (o, a) =>
+            CreateDynamicProgressBarControl();
+            if (this.range.Text != "")
             {
-                Program.Discovery();
-            };
-            worker.RunWorkerCompleted += (o, a) =>
+                if (isValidIP())
+                {
+                    BackgroundWorker worker = new BackgroundWorker();
+                    worker.WorkerReportsProgress = true;
+                    worker.DoWork += (o, a) =>
+                    {
+                        Program.Discovery(Percent,PBar2,ip1.ToString()+"."+ ip2.ToString() + "." + ip3.ToString() + ".", ip4,ip5);
+                    };
+                    worker.RunWorkerCompleted += (o, a) =>
+                    {
+                        while (AllInfo.Count != 0)
+                        {
+                            AllInfo.RemoveAt(0);
+                        }
+                        foreach (InfoToSend i in Program.AllInfo)
+                        {
+                            if (checkIP(i.ipAddress))
+                            {
+                                this.AllInfo.Add(i);
+                            }
+                        }
+                        count.Text = "Devices Found: " + (this.AllInfo.Count).ToString();
+                        Application.Current.Dispatcher.Invoke(() => { PBar2.Value = 100; });
+                        Application.Current.Dispatcher.Invoke(() => { Percent.Text = "100%"; });
+                        Application.Current.Dispatcher.Invoke(() => { PBar2.Value = 0; });
+                        SBar.Items.Remove(PBar2);
+                    };
+                    worker.RunWorkerAsync();
+                }
+                else
+                {
+                    MessageBox.Show("Enter Valid IP Range.", "Nulodgic Discovery Tool", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
             {
-                while (AllInfo.Count != 0)
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.WorkerReportsProgress = true;
+                worker.DoWork += (o, a) =>
                 {
-                    AllInfo.RemoveAt(0);
-                }
-                foreach (InfoToSend i in Program.AllInfo)
+                    Program.Discovery(Percent, PBar2);
+                };
+                worker.RunWorkerCompleted += (o, a) =>
                 {
-                    this.AllInfo.Add(i);
-                }
-                count.Text = "Devices Found: " + (AllInfo.Count).ToString();
-                BusyIndicator.IsBusy = false;
-            };
-            worker.RunWorkerAsync();
+                    while (AllInfo.Count != 0)
+                    {
+                        AllInfo.RemoveAt(0);
+                    }
+                    foreach (InfoToSend i in Program.AllInfo)
+                    {
+                        this.AllInfo.Add(i);
+                    }
+                    count.Text = "Devices Found: " + (AllInfo.Count).ToString();
+                    Application.Current.Dispatcher.Invoke(() => { PBar2.Value = 100; });
+                    Application.Current.Dispatcher.Invoke(() => { Percent.Text = "100%"; });
+                    Application.Current.Dispatcher.Invoke(() => { PBar2.Value = 0; });
+                    SBar.Items.Remove(PBar2);
+                };
+                worker.RunWorkerAsync();
+            }
         }
+        private void CreateDynamicProgressBarControl()
+        {
+            PBar2 = new ProgressBar();
+            PBar2.IsIndeterminate = false;
+            PBar2.Orientation = Orientation.Horizontal;
+            PBar2.Width = 900;
+            PBar2.Height = 20;
+            SBar.Items.Add(PBar2);
+        }
+        private bool checkIP(string ip)
+        {
+            string[] valid = ip.Split('.');
+            if (int.Parse(valid[0]) != ip1)
+            {
+                return false;
+            }
+            if (int.Parse(valid[1]) != ip2)
+            {
+                return false;
+            }
+            if (int.Parse(valid[2]) != ip3)
+            {
+                return false;
+            }
+            if (int.Parse(valid[3]) < ip4 || int.Parse(valid[3]) > ip5)
+            {
+                return false;
+            }
+            return true;
 
+        }
+        private bool isValidIP()
+        {
+            try
+            {
+                string IPrange = this.range.Text;
+                string[] valid = IPrange.Split('.');
+                string[] valid2 = valid[3].Split('-');
+                ip1 = int.Parse(valid[0]);
+                if (!(ip1 >= 1 && ip1 <= 255))
+                {
+                    return false;
+                }
+                ip2 = int.Parse(valid[1]);
+                if (!(ip2 >= 0 && ip2 <= 255))
+                {
+                    return false;
+                }
+                ip3 = int.Parse(valid[2]);
+                if (!(ip3 >= 0 && ip3 <= 255))
+                {
+                    return false;
+                }
+                ip4 = int.Parse(valid2[0]);
+                if (!(ip4 >= 0 && ip4 <= 255))
+                {
+                    return false;
+                }
+                ip5 = int.Parse(valid2[1]);
+                if (!(ip5 > ip4 && ip5 <= 255))
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         private void Push_Data(object sender, RoutedEventArgs e)
         {
             if (this.AllInfo.Count != 0)
